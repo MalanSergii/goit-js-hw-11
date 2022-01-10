@@ -1,0 +1,38 @@
+.search-form {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  background: #56ccf2;
+  background: -webkit-linear-gradient(to right, #2f80ed, #56ccf2);
+  background: linear-gradient(to right, #83adf1, #cce4ec);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#search-form input {
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.btn {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-left: 15px;
+  background: #ff9966; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ff5e62, #ff9966); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #d4f4ca,
+    #63ea75
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
