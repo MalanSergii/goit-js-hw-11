@@ -1,4 +1,7 @@
-.load-more {
+.disabledBtn {
+  display: none;
+}
+.enabledBtn {
   display: block;
   padding: 10px 20px;
   margin-left: auto;
@@ -9,7 +12,6 @@
   border: none;
   border-radius: 5px;
 
-  //   background: #c2f39d;
   background: -webkit-linear-gradient(to right, #c0f8b3, #f7971e);
   background: linear-gradient(to right, #c0f8b3, #f7971e);
   color: rgb(255, 255, 255);

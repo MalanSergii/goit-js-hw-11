@@ -59,13 +59,13 @@ async function fetcher(request) {
         await gallery.insertAdjacentHTML("beforeend", markup);
             let simpleLB = new SimpleLightbox('.gallery a');
             simpleLB.on('show.simplelightbox');
+      
     } catch (error) {
         console.log(error);
     }
 }
 
-function onSearch(event) {
-    loadMoreButton.disabled = true;
+async function onSearch(event) {
     event.preventDefault()
     page = 1;
     if (input.value.trim() === "") {
@@ -74,19 +74,19 @@ function onSearch(event) {
     }
     gallery.innerHTML = ""
     event.preventDefault();
-    fetcher(input.value).then(data => {
+    await fetcher(input.value).then(data => {
         if (data.totalHits == 0) {
             Notiflix.Notify.failure("No pictures for your request, try again");
             input.value = "";
             return;
         }
         Notiflix.Notify.success(`we find ${data.totalHits} pictures`);
-        loadMoreButton.disabled = false;
         return data
 
     })
         .then(render);
-
+  loadMoreButton.classList.remove("disabledBtn");
+  loadMoreButton.classList.add("enabledBtn");
 }
 
 async function loadMore() {
