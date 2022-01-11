@@ -83,10 +83,19 @@ async function onSearch(event) {
         Notiflix.Notify.success(`we find ${data.totalHits} pictures`);
         return data
 
-    })
-        .then(render);
-  loadMoreButton.classList.remove("disabledBtn");
-  loadMoreButton.classList.add("enabledBtn");
+    }).then(data => {
+      if (data.hits.length === per_page) {
+        loadMoreButton.classList.remove("disabledBtn");
+        loadMoreButton.classList.add("enabledBtn");
+      }
+      render(data);
+      
+    });
+    
+  
+  
+  
+  
 }
 
 async function loadMore() {
@@ -94,11 +103,22 @@ async function loadMore() {
     const fetch = await fetcher(input.value);
     let simpleLB = new SimpleLightbox('.gallery a');
     simpleLB.refresh()
-    return await render(fetch);
-    
-    
+  await render(fetch);
+  if (fetch.hits.length < per_page) {
+    Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.")
+    loadMoreButton.classList.remove("enabledBtn");
+    loadMoreButton.classList.add("disabledBtn");
+  }
+
 }
 
+// function checkingRestData() {
+//   if (fetch.hits.length < per_page) {
+//     Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.")
+//     loadMoreButton.classList.remove("enabledBtn");
+//     loadMoreButton.classList.add("disabledBtn");
+//   }
+// }
 
 form.addEventListener("submit", onSearch)
 
