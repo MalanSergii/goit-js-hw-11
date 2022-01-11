@@ -66,7 +66,10 @@ async function fetcher(request) {
 }
 
 async function onSearch(event) {
-    event.preventDefault()
+  event.preventDefault()
+  if (loadMoreButton) {
+    loadMoreButton.classList.remove("enabledBtn");
+  }
     page = 1;
     if (input.value.trim() === "") {
         Notiflix.Notify.warning("Enter your request correctly, please");
