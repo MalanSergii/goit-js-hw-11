@@ -13,7 +13,8 @@ const input = document.querySelector("input");
 const form = document.querySelector(".search-form");
 const gallery = document.querySelector(".gallery");
 const loadMoreButton = document.querySelector(".load-more");
-
+const formButton = document.querySelector(".btn");
+console.log(formButton);
 
 let page = 1;
 let per_page = 40;
@@ -66,7 +67,9 @@ async function fetcher(request) {
 }
 
 async function onSearch(event) {
-  event.preventDefault()
+  event.preventDefault();
+  formButton.disabled = true;
+
   if (loadMoreButton) {
     loadMoreButton.classList.remove("enabledBtn");
   }
@@ -92,9 +95,10 @@ async function onSearch(event) {
         loadMoreButton.classList.add("enabledBtn");
       }
       render(data);
+
       
     });
-    
+    formButton.disabled = false;
   
   
   
@@ -115,13 +119,6 @@ async function loadMore() {
 
 }
 
-// function checkingRestData() {
-//   if (fetch.hits.length < per_page) {
-//     Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.")
-//     loadMoreButton.classList.remove("enabledBtn");
-//     loadMoreButton.classList.add("disabledBtn");
-//   }
-// }
 
 form.addEventListener("submit", onSearch)
 
