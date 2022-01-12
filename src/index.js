@@ -14,7 +14,7 @@ const loadMoreButton = document.querySelector(".load-more");
 const formButton = document.querySelector(".btn");
 
 let page = 1;
-let per_page = 3;
+let per_page = 40;
 
 async function fetcher(request) {
     try {
