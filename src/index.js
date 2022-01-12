@@ -68,8 +68,6 @@ async function fetcher(request) {
 
 async function onSearch(event) {
   event.preventDefault();
-  formButton.disabled = true;
-
   if (loadMoreButton) {
     loadMoreButton.classList.remove("enabledBtn");
   }
@@ -78,6 +76,7 @@ async function onSearch(event) {
         Notiflix.Notify.warning("Enter your request correctly, please");
         return;
     }
+    formButton.classList.add("disabledBtn");
     gallery.innerHTML = ""
     event.preventDefault();
     await fetcher(input.value).then(data => {
@@ -97,11 +96,7 @@ async function onSearch(event) {
       render(data);
       
     });
-    formButton.disabled = false;
-  
-  
-  
-  
+  formButton.classList.remove("disabledBtn");
 }
 
 async function loadMore() {
