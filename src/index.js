@@ -7,17 +7,14 @@ const axios = require('axios');
 const BASE_URL = "https://pixabay.com/api/";
 const key = "25084920-0e8ebadd3b3d898ff3835027a";
 
-
-
 const input = document.querySelector("input");
 const form = document.querySelector(".search-form");
 const gallery = document.querySelector(".gallery");
 const loadMoreButton = document.querySelector(".load-more");
 const formButton = document.querySelector(".btn");
-console.log(formButton);
 
 let page = 1;
-let per_page = 40;
+let per_page = 3;
 
 async function fetcher(request) {
     try {
@@ -69,7 +66,7 @@ async function fetcher(request) {
 async function onSearch(event) {
   event.preventDefault();
   if (loadMoreButton) {
-    loadMoreButton.classList.remove("enabledBtn");
+    hideLoadMoreButton();
   }
     page = 1;
     if (input.value.trim() === "") {
@@ -90,8 +87,7 @@ async function onSearch(event) {
 
     }).then(data => {
       if (data.hits.length === per_page) {
-        loadMoreButton.classList.remove("disabledBtn");
-        loadMoreButton.classList.add("enabledBtn");
+        showLoadMoreButton();
       }
       render(data);
       
@@ -100,7 +96,7 @@ async function onSearch(event) {
 }
 
 async function loadMore() {
-  await showOrHideloadMoreButton();
+  await hideLoadMoreButton();
   page += 1; 
   const fetch = await fetcher(input.value);
   let simpleLB = new SimpleLightbox('.gallery a');
@@ -108,16 +104,20 @@ async function loadMore() {
   await render(fetch);
   if (fetch.hits.length < per_page) {
     Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.")
-    await showOrHideloadMoreButton();
+    await hideLoadMoreButton();
     return;
   }
-  loadMoreButton.classList.remove("disabledBtn");
-  loadMoreButton.classList.add("enabledBtn");
+  showLoadMoreButton();
 }
 
-function showOrHideloadMoreButton() {
+function hideLoadMoreButton() {
   loadMoreButton.classList.remove("enabledBtn");
   loadMoreButton.classList.add("disabledBtn");
+}
+
+function showLoadMoreButton() {
+  loadMoreButton.classList.remove("disabledBtn");
+  loadMoreButton.classList.add("enabledBtn");
 }
 
 form.addEventListener("submit", onSearch)
