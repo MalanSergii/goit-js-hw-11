@@ -100,21 +100,25 @@ async function onSearch(event) {
 }
 
 async function loadMore() {
-  loadMoreButton.disabled = true;
-    page += 1; 
-    const fetch = await fetcher(input.value);
-    let simpleLB = new SimpleLightbox('.gallery a');
-    simpleLB.refresh()
+  await showOrHideloadMoreButton();
+  page += 1; 
+  const fetch = await fetcher(input.value);
+  let simpleLB = new SimpleLightbox('.gallery a');
+  simpleLB.refresh();
   await render(fetch);
-  loadMoreButton.disabled = false;
   if (fetch.hits.length < per_page) {
     Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.")
-    loadMoreButton.classList.remove("enabledBtn");
-    loadMoreButton.classList.add("disabledBtn");
+    await showOrHideloadMoreButton();
+    return;
   }
-
+  loadMoreButton.classList.remove("disabledBtn");
+  loadMoreButton.classList.add("enabledBtn");
 }
 
+function showOrHideloadMoreButton() {
+  loadMoreButton.classList.remove("enabledBtn");
+  loadMoreButton.classList.add("disabledBtn");
+}
 
 form.addEventListener("submit", onSearch)
 
